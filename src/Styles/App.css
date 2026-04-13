@@ -1,108 +1,138 @@
-/* App.css */
-
-/* ── Global reset ── */
-html, body, #root {
-  overflow-x: hidden;
-  max-width: 100vw;
-  margin: 0;
-  padding: 0;
-}
-
-/* ── Neutralize Bootstrap negative margins ── */
-.container-fluid,
-.container {
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-}
-
-.row {
-  margin-left: 0 !important;
-  margin-right: 0 !important;
-}
-
-/* ── App shell ── */
-.App {
-}
-
-.App main {
-  flex: 1;
-}
-
-main {
-  min-height: 81.9vh;
-  padding: 0;
-  margin: 0;
-  background-color: #0f0f0f;
-  background-size: var(--s) calc(2 * var(--s));
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  overflow-x: hidden;
+/* ── Gallery Section ── */
+.gallery-section {
   width: 100%;
-  max-width: 100vw;
+  padding: 100px 0;
+  background-color: #080808; /* Deep black for better contrast */
+  position: relative;
+}
+
+.gallery-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.gallery-title {
+  color: #fff;
+  font-size: 3rem;
+  font-weight: 800;
+  letter-spacing: -1px;
+  margin-bottom: 10px;
+}
+
+.title-underline {
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, #00d2ff 0%, #3a7bd5 100%);
+  margin: 0 auto;
+  border-radius: 2px;
+}
+
+.gallery-container {
+  width: 92%;
+  margin: 0 auto;
+  max-width: 1400px;
+}
+
+/* ── Professional Card Design ── */
+.gallery-slide-item {
+  padding: 20px;
   box-sizing: border-box;
 }
 
-/* ── Home wrapper ── */
-.wrapper-home {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-  margin-left: 0 !important;
-  margin-right: 0 !important;
-  padding-left: 0 !important;
-  padding-right: 0 !important;
+.gallery-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  border-radius: 24px;
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  position: relative;
 }
 
-.spacer {
-  height: 4.7vh;
-  width: 100%;
+.gallery-card:hover {
+  transform: translateY(-15px);
+  border-color: rgba(0, 210, 255, 0.5);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
 }
 
-/* ── 404 page ── */
-.notfoundland {
-  min-height: 81.9vh;
-  padding: 2%;
-  background-color: #0f0f0f;
+.image-container {
+  width: 100%;
+  height: 400px;
+  position: relative;
+  overflow: hidden;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s ease;
+}
+
+.gallery-card:hover img {
+  transform: scale(1.1);
+}
+
+.image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent 60%, rgba(0, 0, 0, 0.8) 100%);
+  opacity: 0.8;
+}
+
+/* ── Elements ── */
+.card-badge {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  color: #fff;
+  padding: 6px 16px;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  z-index: 2;
+}
+
+.gallery-info {
+  padding: 25px;
   color: white;
-  background-size: var(--s) calc(2 * var(--s));
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 100vh;
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-  overflow-x: hidden;
 }
 
-/* ── Slick slider fix ── */
-.slick-list {
-  overflow: hidden !important;
+.gallery-info h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: -0.5px;
 }
 
-.slick-slider,
-.slick-track {
-  max-width: 100%;
-  box-sizing: border-box;
+.card-line {
+  width: 0;
+  height: 2px;
+  background: #00d2ff;
+  margin-top: 10px;
+  transition: width 0.4s ease;
 }
 
-/* ── Responsive ── */
-@media screen and (max-width: 768px) {
-  .animation {
-    display: none;
-  }
+.gallery-card:hover .card-line {
+  width: 40px;
+}
 
-  .wrapper-home {
-    width: 100%;
-    max-width: 100%;
-    padding: 0 !important;
-    margin: 0 !important;
-  }
+/* ── Customizing Slick Dots ── */
+.slick-dots li button:before {
+  color: #fff !important;
+  opacity: 0.2;
+  font-size: 12px;
+}
 
-  main {
-    align-items: stretch;
-  }
+.slick-dots li.slick-active button:before {
+  opacity: 1;
+  color: #00d2ff !important;
 }
