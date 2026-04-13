@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 
 function NavCustom() {
   const [scrolled, setScrolled] = useState(false);
+  const [expanded, setExpanded] = useState(false);
   const [activeLink, setActiveLink] = useState('top');
 
   useEffect(() => {
@@ -30,6 +31,8 @@ function NavCustom() {
       expand="lg"
       id="navbar"
       className={scrolled ? 'scrolled' : ''}
+      expanded={expanded}
+      onToggle={(val) => setExpanded(val)}
       sticky="top"
     >
       <Container fluid className="nav-container">
@@ -46,8 +49,12 @@ function NavCustom() {
           </div>
         </div>
 
-        {/* ── Mobile toggle ── */}
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" className="nav-toggler">
+        {/* ── Mobile toggler ── */}
+        <Navbar.Toggle
+          aria-controls="responsive-navbar-nav"
+          className="nav-toggler"
+          onClick={() => setExpanded(!expanded)}
+        >
           <span className="toggler-bar" />
           <span className="toggler-bar" />
           <span className="toggler-bar short" />
@@ -57,12 +64,16 @@ function NavCustom() {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="ms-auto nav-links-wrap">
             {links.map(({ label, to }) => (
-              <Nav.Link key={to} className="nav-item-wrap">
+              <Nav.Link
+                key={to}
+                className="nav-item-wrap"
+                onClick={() => setExpanded(false)}
+              >
                 <Link
                   to={to}
                   smooth
                   duration={500}
-                  offset={-62}
+                  offset={-64}
                   className={`nav-link-item ${activeLink === to ? 'active' : ''}`}
                   onSetActive={() => setActiveLink(to)}
                   spy
@@ -72,8 +83,15 @@ function NavCustom() {
               </Nav.Link>
             ))}
 
-            {/* CTA pill */}
-          
+            {/* CTA */}
+            <Nav.Link
+              className="nav-cta-wrap"
+              onClick={() => setExpanded(false)}
+            >
+              <Link to="contacts" smooth duration={500} offset={-64} className="nav-cta">
+                Join Us
+              </Link>
+            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
 
