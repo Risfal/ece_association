@@ -1,3 +1,4 @@
+// App.js
 import React from 'react';
 import { useState, useEffect } from 'react';
 import Airtable from 'airtable';
@@ -8,7 +9,6 @@ import Footer from './Components/Footer';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Styles/App.css';
 import "@fortawesome/fontawesome-free/css/all.min.css";
-//import "mdbreact/dist/css/mdb.css";
 import CarouselCustom from './Components/Carousal';
 import ControlledCarousel from './Components/ControlledCarousel';
 import Billboard from './Components/Billboard';
@@ -17,16 +17,14 @@ import NotFound from './Components/NotFound';
 import WebTeam from './Components/WebTeam';
 import Landing from './Components/Landing';
 import Oppam from './Components/Oppam';
-
 import '@splinetool/viewer';
 import SplineAnimation from './Components/SplineAnimation';
 import Epoch from './Components/Epoch';
 
-
 function App() {
   const [carousalItems, setCarousal] = useState([]);
   const [galleryItems, setGallery] = useState([]);
-  const [oppamLinks,setOppamLinks] = useState([]);
+  const [oppamLinks, setOppamLinks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [loadingTimer, setLoadingTimer] = useState(true);
   const MINUTE_MS = 4000;
@@ -35,8 +33,6 @@ function App() {
     const timeout = setTimeout(() => {
       setLoadingTimer(false);
     }, MINUTE_MS);
-
-    // This represents the unmount function, in which you need to clear your timeout to prevent memory leaks.
     return () => clearTimeout(timeout);
   }, []);
 
@@ -52,40 +48,31 @@ function App() {
         tag: record.get('tag'),
         imageUrl: record.get('imageUrl')[0].url
       }))];
-
       setGallery(updatedGalleryItems);
       fetchNextPage();
-
     }, function done(err) {
       setLoading(false);
       if (err) { console.error(err); return; }
     });
 
     base('oppam links').select({
-      // Adjust the table name and view as necessary
       view: 'Grid view',
       fields: ['semester', 'subject name', 'link'],
     }).eachPage((records, fetchNextPage) => {
       const semesterData = {};
-      
       records.forEach(record => {
         const semester = record.get('semester');
         const name = record.get('subject name');
         const link = record.get('link');
-        
         if (!semesterData[semester]) {
           semesterData[semester] = [];
         }
-        
         semesterData[semester].push({ name, link });
       });
-      
-      // Convert the object into an array of objects with 'semester' and 'subItems' keys
       const formattedData = Object.entries(semesterData).map(([semester, subItems]) => ({
         semester,
         subItems,
       }));
-  
       setOppamLinks(formattedData);
       console.log(formattedData);
       fetchNextPage();
@@ -96,68 +83,63 @@ function App() {
         setLoading(false);
       }
     });
-    
-    
   }, []);
 
   return (
-<div>
-<Router>
-  <Routes>
-    <Route path="/" element=
-  {(loading || loadingTimer) ? (
-    <div className="loader-container">
-      <LoadingScreen />
-    </div>
-  ) : (
-    <div className="App" style={{ backgroundColor: '#0f0f0f', maxWidth: '100vw' }}>
-      <div id="top" style={{ height: 0 }} />
-      <NavCustom className="sticky-nav"></NavCustom>
-      <main>
-
-              <div className='wrapper_home'>
-              <div className='animation'>
-            {/* <spline-viewer url="https://prod.spline.design/dpANmJDAzIP5EdUd/scene.splinecode"></spline-viewer> */}
-            <SplineAnimation></SplineAnimation>
-        </div>
-                <Landing></Landing>
-                {/* <CarouselCustom records={carousalItems} /> */}
-                {/* <ControlledCarousel records={galleryItems}></ControlledCarousel> */}
-                <Epoch records={galleryItems}></Epoch>
-                <div className='spacer'></div>
-                <Oppam records = {oppamLinks}></Oppam>
-                <div className='spacer'></div>
-                <Billboard></Billboard>
-                <div className='spacer'></div>
-                <Gallery records={galleryItems} />
-                <div className='spacer'></div>
+    <div style={{ overflowX: 'hidden', maxWidth: '100vw' }}>
+      <Router>
+        <Routes>
+          <Route path="/" element={
+            (loading || loadingTimer) ? (
+              <div className="loader-container">
+                <LoadingScreen />
               </div>
-            
-      </main>
-      <Footer />
+            ) : (
+              <div className="App" style={{ backgroundColor: '#0f0f0f', maxWidth: '100vw', overflowX: 'hidden' }}>
+                <div id="top" style={{ height: 0 }} />
+                <NavCustom className="sticky-nav" />
+                <main>
+                  <div className='wrapper-home'> {/* ← THE FIX: was wrapper_home */}
+                    <div className='animation'>
+                      <SplineAnimation />
+                    </div>
+                    <Landing />
+                    <Epoch records={galleryItems} />
+                    <div className='spacer'></div>
+                    <Oppam records={oppamLinks} />
+                    <div className='spacer'></div>
+                    <Billboard />
+                    <div className='spacer'></div>
+                    <Gallery records={galleryItems} />
+                    <div className='spacer'></div>
+                  </div>
+                </main>
+                <Footer />
+              </div>
+            )
+          } />
+
+          <Route path="*" exact={true} element={
+            <div className="notfoundland">
+              <NotFound />
+            </div>
+          } />
+
+          <Route path="/loading" exact={true} element={
+            <div className="loader-container">
+              <LoadingScreen />
+            </div>
+          } />
+
+          <Route path="/team" exact={true} element={
+            <div className="notfoundland">
+              <WebTeam />
+            </div>
+          } />
+        </Routes>
+      </Router>
     </div>
-  )}
- />
-<Route path="*" exact={true} element={
-  <div className="notfoundland">
-<NotFound/>
-</div>
-} />
-<Route path="/loading" exact={true} element={
-  <div className="loader-container">
-    <LoadingScreen />
-  </div>} />
-  <Route path="/team" exact={true} element={
-    <div className="notfoundland">
-    <WebTeam/>
-    </div>} />
-</Routes>
-
-</Router>
-</div>
-
   );
 }
 
 export default App;
-
