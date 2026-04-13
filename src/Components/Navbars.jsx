@@ -83,12 +83,10 @@ function NavCustom() {
               </Nav.Link>
             ))}
 
-            {/* CTA */}
             <Nav.Link
               className="nav-cta-wrap"
               onClick={() => setExpanded(false)}
-            >
-            </Nav.Link>
+            />
           </Nav>
         </Navbar.Collapse>
 
