@@ -2,7 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import Airtable from 'airtable';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Gallery from '.Gallery';
+import Gallery from './Components/Gallery';
 import NavCustom from './Components/Navbars';
 import Footer from './Components/Footer';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -20,6 +20,7 @@ import Oppam from './Components/Oppam';
 
 import '@splinetool/viewer';
 import SplineAnimation from './Components/SplineAnimation';
+import Epoch from './Components/Epoch';
 
 
 function App() {
@@ -122,6 +123,7 @@ function App() {
                 <Landing></Landing>
                 {/* <CarouselCustom records={carousalItems} /> */}
                 {/* <ControlledCarousel records={galleryItems}></ControlledCarousel> */}
+                <Epoch records={galleryItems}></Epoch>
                 <div className='spacer'></div>
                 <Oppam records = {oppamLinks}></Oppam>
                 <div className='spacer'></div>
@@ -158,4 +160,3 @@ function App() {
 }
 
 export default App;
-
