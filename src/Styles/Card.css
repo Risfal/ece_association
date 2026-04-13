@@ -1,132 +1,184 @@
-:root {
-  --card-curve: 20px;
-  --neon-cyan: #00f0ff;
-  --neon-purple: #bf00ff;
-  --glass-bg: rgba(10, 10, 15, 0.85);
+/* ── Card ── */
+.gallery-card {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #0d0d0d;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  cursor: pointer;
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              border-color 0.4s ease,
+              box-shadow 0.4s ease;
+  display: flex;
+  flex-direction: column;
 }
 
-.epoch-card-item {
-  width: 100%;
-  height: 100%;
-  perspective: 1000px;
+.gallery-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(0, 240, 255, 0.35);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6),
+              0 0 30px rgba(0, 240, 255, 0.08);
 }
 
-.epoch-card-inner {
+/* ── Image ── */
+.gallery-card-img-wrap {
   position: relative;
   width: 100%;
-  aspect-ratio: 4 / 5; /* Professional portrait ratio */
-  border-radius: var(--card-curve);
+  aspect-ratio: 3 / 4;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: #05050a;
-  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  background: #111;
 }
 
-.epoch-card-img {
+.gallery-card-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.6s ease, filter 0.6s ease;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              filter 0.5s ease;
+  filter: brightness(0.9) saturate(0.95);
 }
 
-/* Glass Overlay */
-.epoch-card-overlay {
+.gallery-card:hover .gallery-card-img {
+  transform: scale(1.06);
+  filter: brightness(0.55) saturate(0.7);
+}
+
+/* ── Shine layer ── */
+.gallery-card-shine {
   position: absolute;
   inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.04) 0%,
+    transparent 60%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ── Hover overlay ── */
+.gallery-card-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  padding: 24px;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 28px 24px;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
   background: linear-gradient(
-    to top,
-    rgba(3, 3, 7, 0.95) 0%,
-    rgba(3, 3, 7, 0.4) 50%,
-    transparent 100%
+    180deg,
+    rgba(0, 0, 0, 0.1) 0%,
+    rgba(0, 0, 0, 0.75) 100%
   );
-  transform: translateY(40%); /* Subtle hint of text visible */
-  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-/* Header Text */
-.epoch-card-header {
-  margin-bottom: 12px;
+.gallery-card:hover .gallery-card-overlay {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-.epoch-card-tag {
-  display: inline-block;
-  font-family: 'Inter', sans-serif;
+.gallery-card-tag {
   font-size: 10px;
   font-weight: 700;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  letter-spacing: 0.15em;
-  color: var(--neon-cyan);
-  margin-bottom: 6px;
+  color: #00f0ff;
+  border: 1px solid rgba(0, 240, 255, 0.4);
+  padding: 3px 10px;
+  border-radius: 4px;
+  margin-bottom: 12px;
+  display: inline-block;
 }
 
-.epoch-card-name {
-  font-family: 'Outfit', sans-serif;
+.gallery-card-name {
   font-size: 20px;
   font-weight: 700;
-  color: #ffffff;
+  color: #fff;
   margin: 0;
-  line-height: 1.2;
+  line-height: 1.25;
+  letter-spacing: 0.02em;
 }
 
-/* Body Content */
-.epoch-card-body {
-  opacity: 0;
-  transition: opacity 0.3s ease;
+.gallery-card-divider {
+  width: 32px;
+  height: 2px;
+  background: linear-gradient(90deg, #00f0ff, #bf00ff);
+  border-radius: 4px;
+  margin: 14px 0;
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.4);
 }
 
-.epoch-card-text {
-  /* ... your other styles ... */
-
-  /* 1. Necessary for line-clamping */
+.gallery-card-desc {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.65;
+  margin: 0;
   display: -webkit-box;
-  
-  /* 2. Defines the direction (Required for the clamp to work) */
+  -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
-  
-  /* 3. The number of lines to show */
-  -webkit-line-clamp: 3;
-  line-clamp: 3;
-  
-  /* 4. Hide the text that overflows the 3 lines */
   overflow: hidden;
 }
 
-/* --- Hover Effects --- */
-
-.epoch-card-item:hover .epoch-card-inner {
-  border-color: var(--neon-cyan);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 
-              0 0 15px rgba(0, 240, 255, 0.2);
+/* ── Always-visible footer ── */
+.gallery-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  transition: background 0.3s ease;
+  z-index: 3;
+  position: relative;
 }
 
-.epoch-card-item:hover .epoch-card-img {
-  transform: scale(1.1);
-  filter: brightness(0.6) blur(2px);
+.gallery-card:hover .gallery-card-footer {
+  background: rgba(0, 240, 255, 0.04);
+  border-top-color: rgba(0, 240, 255, 0.15);
 }
 
-.epoch-card-item:hover .epoch-card-overlay {
-  transform: translateY(0);
-  background: rgba(10, 10, 15, 0.85);
-  backdrop-filter: blur(8px);
+.gallery-card-footer-tag {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #00f0ff;
+  opacity: 0.75;
 }
 
-.epoch-card-item:hover .epoch-card-body {
-  opacity: 1;
-  transition-delay: 0.1s;
+.gallery-card-footer-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.55);
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 60%;
+  text-align: right;
 }
 
-/* Mobile Optimizations - No Hover */
+/* ── Responsive ── */
 @media (max-width: 768px) {
-  .epoch-card-overlay {
-    transform: translateY(0);
-    background: rgba(10, 10, 15, 0.7);
-    backdrop-filter: blur(4px);
-  }
-  .epoch-card-body {
+  .gallery-card-overlay {
     opacity: 1;
+    transform: translateY(0);
+    background: linear-gradient(
+      180deg,
+      transparent 30%,
+      rgba(0, 0, 0, 0.85) 100%
+    );
+    justify-content: flex-end;
+    padding: 20px 16px;
+  }
+
+  .gallery-card:hover .gallery-card-img {
+    transform: scale(1.03);
+    filter: brightness(0.75) saturate(0.8);
   }
 }

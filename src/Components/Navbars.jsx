@@ -4,16 +4,14 @@ import Navbar from 'react-bootstrap/Navbar';
 import { Image } from 'react-bootstrap';
 import '../Styles/Navbars.css';
 import { Link } from 'react-scroll';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 function NavCustom() {
-  // Add scrolled class for shadow
+  const [scrolled, setScrolled] = useState(false);
+  const [activeLink, setActiveLink] = useState('top');
+
   useEffect(() => {
-    const navbar = document.getElementById('navbar');
-    const onScroll = () => {
-      if (window.scrollY > 10) navbar.classList.add('scrolled');
-      else navbar.classList.remove('scrolled');
-    };
+    const onScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
@@ -27,29 +25,58 @@ function NavCustom() {
   ];
 
   return (
-    <Navbar collapseOnSelect expand="lg" id="navbar" sticky="top">
-      <Container fluid>
-        {/* Brand */}
-        <div className="props">
-          <Image src="./eclogowhite.png" width={46} height={46} />
-          <div className="title">ECE Billboard</div>
+    <Navbar
+      collapseOnSelect
+      expand="lg"
+      id="navbar"
+      className={scrolled ? 'scrolled' : ''}
+      sticky="top"
+    >
+      <Container fluid className="nav-container">
+
+        {/* ── Brand ── */}
+        <div className="nav-brand">
+          <div className="nav-logo-wrap">
+            <Image src="./eclogowhite.png" width={40} height={40} className="nav-logo" />
+            <div className="nav-logo-ring" />
+          </div>
+          <div className="nav-brand-text">
+            <span className="nav-brand-main">ECE</span>
+            <span className="nav-brand-sub">Billboard</span>
+          </div>
         </div>
 
-        {/* Mobile toggle */}
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        {/* ── Mobile toggle ── */}
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" className="nav-toggler">
+          <span className="toggler-bar" />
+          <span className="toggler-bar" />
+          <span className="toggler-bar short" />
+        </Navbar.Toggle>
 
-        {/* Links */}
+        {/* ── Links ── */}
         <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="ms-auto">
+          <Nav className="ms-auto nav-links-wrap">
             {links.map(({ label, to }) => (
-              <Nav.Link key={to}>
-                <Link to={to} smooth duration={500} offset={-62}>
+              <Nav.Link key={to} className="nav-item-wrap">
+                <Link
+                  to={to}
+                  smooth
+                  duration={500}
+                  offset={-62}
+                  className={`nav-link-item ${activeLink === to ? 'active' : ''}`}
+                  onSetActive={() => setActiveLink(to)}
+                  spy
+                >
                   {label}
                 </Link>
               </Nav.Link>
             ))}
+
+            {/* CTA pill */}
+          
           </Nav>
         </Navbar.Collapse>
+
       </Container>
     </Navbar>
   );
