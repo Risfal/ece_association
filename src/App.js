@@ -1,4 +1,3 @@
-// App.js
 import React from 'react';
 import { useState, useEffect } from 'react';
 import Airtable from 'airtable';
@@ -22,7 +21,6 @@ import SplineAnimation from './Components/SplineAnimation';
 import Epoch from './Components/Epoch';
 
 function App() {
-  const [carousalItems, setCarousal] = useState([]);
   const [galleryItems, setGallery] = useState([]);
   const [oppamLinks, setOppamLinks] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -37,28 +35,37 @@ function App() {
   }, []);
 
   useEffect(() => {
-    var base = new Airtable({ apiKey: 'patEIftf6ErouVFwc.f3085100c905da7b0bf5336990947424495795a0b4b0c4ec735384678ca7021e' }).base('app3s7iPWjKOvxwVy');
+    var base = new Airtable({
+      apiKey: 'patEIftf6ErouVFwc.f3085100c905da7b0bf5336990947424495795a0b4b0c4ec735384678ca7021e'
+    }).base('app3s7iPWjKOvxwVy');
+
+    // ── Gallery ──
     base('Gallery').select({
       maxRecords: 10,
       view: "Grid view"
-    }).eachPage(function page(galleryItems, fetchNextPage) {
-      const updatedGalleryItems = [...galleryItems, ...galleryItems.map(record => ({
+    }).eachPage(function page(records, fetchNextPage) {
+
+      const mapped = records.map(record => ({
         name: record.get('name'),
         description: record.get('description'),
         tag: record.get('tag'),
-        imageUrl: record.get('imageUrl')[0].url
-      }))];
-      setGallery(updatedGalleryItems);
+        imageUrl: record.get('imageUrl')?.[0]?.url ?? null,
+      })).filter(item => item.imageUrl); // drop any records missing an image
+
+      setGallery(prev => [...prev, ...mapped]);
       fetchNextPage();
+
     }, function done(err) {
       setLoading(false);
-      if (err) { console.error(err); return; }
+      if (err) { console.error(err); }
     });
 
+    // ── Oppam links ──
     base('oppam links').select({
       view: 'Grid view',
       fields: ['semester', 'subject name', 'link'],
     }).eachPage((records, fetchNextPage) => {
+
       const semesterData = {};
       records.forEach(record => {
         const semester = record.get('semester');
@@ -69,49 +76,53 @@ function App() {
         }
         semesterData[semester].push({ name, link });
       });
+
       const formattedData = Object.entries(semesterData).map(([semester, subItems]) => ({
         semester,
         subItems,
       }));
+
       setOppamLinks(formattedData);
-      console.log(formattedData);
       fetchNextPage();
+
     }, (err) => {
-      if (err) {
-        console.error(err);
-      } else {
-        setLoading(false);
-      }
+      if (err) { console.error(err); }
+      else { setLoading(false); }
     });
+
   }, []);
 
   return (
     <div style={{ overflowX: 'hidden', maxWidth: '100vw' }}>
       <Router>
         <Routes>
+
           <Route path="/" element={
             (loading || loadingTimer) ? (
               <div className="loader-container">
                 <LoadingScreen />
               </div>
             ) : (
-              <div className="App" style={{ backgroundColor: '#0f0f0f', maxWidth: '100vw', overflowX: 'hidden' }}>
+              <div
+                className="App"
+                style={{ backgroundColor: '#0f0f0f', maxWidth: '100vw', overflowX: 'hidden' }}
+              >
                 <div id="top" style={{ height: 0 }} />
                 <NavCustom className="sticky-nav" />
                 <main>
-                  <div className='wrapper-home'> {/* ← THE FIX: was wrapper_home */}
-                    <div className='animation'>
+                  <div className="wrapper-home">
+                    <div className="animation">
                       <SplineAnimation />
                     </div>
                     <Landing />
                     <Epoch records={galleryItems} />
-                    <div className='spacer'></div>
+                    <div className="spacer" />
                     <Oppam records={oppamLinks} />
-                    <div className='spacer'></div>
+                    <div className="spacer" />
                     <Billboard />
-                    <div className='spacer'></div>
+                    <div className="spacer" />
                     <Gallery records={galleryItems} />
-                    <div className='spacer'></div>
+                    <div className="spacer" />
                   </div>
                 </main>
                 <Footer />
@@ -119,23 +130,24 @@ function App() {
             )
           } />
 
-          <Route path="*" exact={true} element={
+          <Route path="*" element={
             <div className="notfoundland">
               <NotFound />
             </div>
           } />
 
-          <Route path="/loading" exact={true} element={
+          <Route path="/loading" element={
             <div className="loader-container">
               <LoadingScreen />
             </div>
           } />
 
-          <Route path="/team" exact={true} element={
+          <Route path="/team" element={
             <div className="notfoundland">
               <WebTeam />
             </div>
           } />
+
         </Routes>
       </Router>
     </div>
