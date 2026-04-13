@@ -1,7 +1,6 @@
 import React, { useState, useRef } from "react";
 import "../Styles/Epoch.css";
 
-// Import your images
 import Epoch1 from "../Epoch1.jpeg";
 import Epoch2 from "../Styles/Epoch2.jpeg";
 import Epoch3 from "../Epoch1.jpeg";
@@ -25,29 +24,25 @@ const EPOCHS = [
     img: Epoch2,
     name: "Epoch I",
     tag: "Session 1",
-    description:
-      "Kickoff session introducing EPOCH's mission, structure, and placement roadmap for the department.",
+    description: "Kickoff session introducing EPOCH's mission, structure, and placement roadmap for the department.",
   },
   {
     img: Epoch3,
     name: "Epoch III",
     tag: "Session 3",
-    description:
-      "Deep dive into resume building, LinkedIn optimization, and personal branding for tech roles.",
+    description: "Deep dive into resume building, LinkedIn optimization, and personal branding for tech roles.",
   },
   {
     img: Epoch4,
     name: "Epoch IV",
     tag: "Session 4",
-    description:
-      "Mock interview practice and aptitude preparation with peer and mentor feedback.",
+    description: "Mock interview practice and aptitude preparation with peer and mentor feedback.",
   },
   {
     img: Epoch5,
     name: "Epoch V",
     tag: "Session 5",
-    description:
-      "Panel discussion on internship experiences and navigating the campus recruitment process.",
+    description: "Panel discussion on internship experiences and navigating the campus recruitment process.",
   },
 ];
 
@@ -91,59 +86,17 @@ function Epoch() {
             placement readiness across the department.
           </p>
 
-          {/* ── Session Details ── */}
           {(latest.speakers || latest.date) && (
-            <div
-              className="epoch-feat-session-details"
-              style={{
-                backgroundColor: "rgba(255,255,255,0.02)",
-                border: "1px solid var(--epoch-border)",
-                padding: "24px",
-                borderRadius: "16px",
-                margin: "20px 0",
-                display: "flex",
-                flexDirection: "column",
-                gap: "18px",
-                boxShadow: "inset 0 0 20px rgba(0, 240, 255, 0.05)",
-              }}
-            >
+            <div className="epoch-session-box">
+
               {latest.speakers && latest.speakers.length > 0 && (
                 <div className="epoch-speakers">
-                  <h3
-                    style={{
-                      margin: "0 0 16px 0",
-                      fontSize: "14px",
-                      color: "var(--epoch-accent)",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.15em",
-                    }}
-                  >
-                    🎙️ Guest Speakers
-                  </h3>
-                  <ul
-                    style={{
-                      listStyle: "none",
-                      padding: 0,
-                      margin: 0,
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: "12px",
-                    }}
-                  >
+                  <h3 className="epoch-speakers-title">🎙️ Guest Speakers</h3>
+                  <ul className="epoch-speakers-list">
                     {latest.speakers.map((speaker, idx) => (
-                      <li key={idx} style={{ fontSize: "15px", color: "var(--epoch-text)" }}>
-                        <strong
-                          style={{
-                            fontWeight: "600",
-                            letterSpacing: "0.03em",
-                            display: "block",
-                          }}
-                        >
-                          {speaker.name}
-                        </strong>
-                        <span style={{ color: "var(--epoch-muted)", fontSize: "13px" }}>
-                          {speaker.role}
-                        </span>
+                      <li key={idx} className="epoch-speaker-item">
+                        <strong className="epoch-speaker-name">{speaker.name}</strong>
+                        <span className="epoch-speaker-role">{speaker.role}</span>
                       </li>
                     ))}
                   </ul>
@@ -151,31 +104,11 @@ function Epoch() {
               )}
 
               {(latest.date || latest.mode) && (
-                <div
-                  className="epoch-session-meta"
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    paddingTop: "16px",
-                    borderTop: "1px solid var(--epoch-border)",
-                    fontSize: "14px",
-                  }}
-                >
-                  <div style={{ color: "var(--epoch-text)" }}>
+                <div className="epoch-session-meta">
+                  <div className="epoch-session-date">
                     📅 <strong>{latest.date}</strong>
                   </div>
-                  <div
-                    style={{
-                      color: "var(--epoch-accent)",
-                      textTransform: "uppercase",
-                      fontSize: "11px",
-                      letterSpacing: "0.1em",
-                      fontWeight: "700",
-                    }}
-                  >
-                    {latest.mode}
-                  </div>
+                  <div className="epoch-session-mode">{latest.mode}</div>
                 </div>
               )}
 
@@ -185,28 +118,6 @@ function Epoch() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="epoch-join-btn"
-                  style={{
-                    display: "block",
-                    textAlign: "center",
-                    backgroundColor: "var(--epoch-accent)",
-                    color: "#080808",
-                    padding: "12px 20px",
-                    borderRadius: "8px",
-                    textDecoration: "none",
-                    fontWeight: "800",
-                    fontSize: "14px",
-                    marginTop: "8px",
-                    transition: "all 0.3s ease",
-                    boxShadow: "0 0 15px rgba(0, 240, 255, 0.3)",
-                  }}
-                  onMouseOver={(e) => {
-                    e.target.style.transform = "translateY(-2px)";
-                    e.target.style.boxShadow = "0 0 25px rgba(0, 240, 255, 0.5)";
-                  }}
-                  onMouseOut={(e) => {
-                    e.target.style.transform = "translateY(0)";
-                    e.target.style.boxShadow = "0 0 15px rgba(0, 240, 255, 0.3)";
-                  }}
                 >
                   🔗 Join Live Session
                 </a>
@@ -215,16 +126,14 @@ function Epoch() {
           )}
         </div>
 
-        {/* Right: full poster image */}
+        {/* Right: poster image */}
         <div className="epoch-feat-img">
           <div className="epoch-feat-img-top">
             <img src={latest.img} alt={latest.name} />
           </div>
           <div className="epoch-feat-img-label">
             <div className="epoch-feat-img-label-dot" />
-            <span>
-              {latest.name} · {latest.tag}
-            </span>
+            <span>{latest.name} · {latest.tag}</span>
           </div>
         </div>
       </div>
@@ -253,13 +162,7 @@ function Epoch() {
         </div>
 
         <div className="epoch-nav">
-          <button
-            className="epoch-nav-btn"
-            onClick={() => goTo(page - 1)}
-            aria-label="Previous"
-          >
-            ‹
-          </button>
+          <button className="epoch-nav-btn" onClick={() => goTo(page - 1)} aria-label="Previous">‹</button>
           <div className="epoch-dots">
             {Array.from({ length: totalPages }).map((_, i) => (
               <button
@@ -270,13 +173,7 @@ function Epoch() {
               />
             ))}
           </div>
-          <button
-            className="epoch-nav-btn"
-            onClick={() => goTo(page + 1)}
-            aria-label="Next"
-          >
-            ›
-          </button>
+          <button className="epoch-nav-btn" onClick={() => goTo(page + 1)} aria-label="Next">›</button>
         </div>
       </div>
     </div>
