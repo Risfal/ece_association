@@ -1,0 +1,285 @@
+/* ═══════════════════════════════════════════
+   OPPAM — Modern Academic Portal
+   ═══════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Mulish:wght@300;400;500;600&display=swap');
+
+:root {
+  --op-bg: #080c10;
+  --op-surface: #0e1318;
+  --op-card: #111820;
+  --op-border: rgba(255,255,255,0.06);
+  --op-border-hover: rgba(0,190,160,0.35);
+  --op-accent: #00bea0;
+  --op-accent-dim: rgba(0,190,160,0.1);
+  --op-accent-glow: rgba(0,190,160,0.2);
+  --op-text: #e8eef4;
+  --op-muted: #4a5568;
+  --op-subtle: #1a2230;
+  --op-radius: 14px;
+  --op-radius-sm: 9px;
+}
+
+* { box-sizing: border-box; }
+
+/* ── Page wrapper ── */
+.oppam {
+  min-height: 100vh;
+  background: var(--op-bg);
+  color: var(--op-text);
+  font-family: 'Mulish', sans-serif;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Subtle grid background */
+.oppam::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,190,160,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,190,160,0.03) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── HERO / TOP ── */
+.top {
+  position: relative;
+  z-index: 1;
+  padding: 90px 60px 60px;
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+/* Icon + title row */
+.oppam-hero-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 6px;
+}
+
+.oppam-hero-title .oppam-icon {
+  font-size: 2.2rem;
+  color: var(--op-accent);
+  filter: drop-shadow(0 0 10px var(--op-accent-glow));
+  animation: icon-pulse 3s ease-in-out infinite;
+}
+
+@keyframes icon-pulse {
+  0%, 100% { filter: drop-shadow(0 0 8px var(--op-accent-glow)); }
+  50%       { filter: drop-shadow(0 0 20px var(--op-accent)); }
+}
+
+.oppam-hero-title h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: 52px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--op-text);
+  margin: 0;
+  line-height: 1;
+}
+
+/* Accent underline */
+.oppam-hero-title h1 span {
+  position: relative;
+  display: inline-block;
+}
+
+.oppam-hero-title h1 span::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--op-accent), transparent);
+  border-radius: 2px;
+}
+
+/* Subtitle */
+.top h3 {
+  font-family: 'Syne', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--op-accent);
+  margin: 14px 0 0;
+}
+
+/* Description */
+.top p {
+  font-size: 14px;
+  color: var(--op-muted);
+  line-height: 1.8;
+  margin: 18px auto 0;
+  max-width: 480px;
+  font-style: normal;
+  font-weight: 300;
+  letter-spacing: 0.02em;
+}
+
+/* Divider after hero */
+.oppam-hero-divider {
+  width: 1px;
+  height: 48px;
+  background: linear-gradient(to bottom, var(--op-accent), transparent);
+  margin: 0 auto 0;
+}
+
+/* ── CONTENT PANEL ── */
+.content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  padding: 0 24px 80px;
+}
+
+/* MUI List overrides via wrapper */
+.oppam-list-wrapper {
+  width: 100%;
+  max-width: 860px;
+  background: var(--op-surface) !important;
+  border: 1px solid var(--op-border);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,190,160,0.05);
+}
+
+/* Subheader */
+.oppam-list-wrapper .MuiListSubheader-root {
+  background: var(--op-surface) !important;
+  color: var(--op-text) !important;
+  font-family: 'Syne', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.2em !important;
+  text-transform: uppercase !important;
+  padding: 20px 28px 18px !important;
+  border-bottom: 1px solid var(--op-border) !important;
+  position: relative !important;
+}
+
+.oppam-list-wrapper .MuiListSubheader-root::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 28px;
+  width: 36px; height: 2px;
+  background: var(--op-accent);
+  border-radius: 2px;
+}
+
+/* Semester row buttons */
+.oppam-list-wrapper .MuiListItemButton-root {
+  padding: 16px 28px !important;
+  border-bottom: 1px solid var(--op-border) !important;
+  transition: background 0.2s, padding-left 0.2s !important;
+}
+
+.oppam-list-wrapper .MuiListItemButton-root:hover {
+  background: var(--op-accent-dim) !important;
+  padding-left: 36px !important;
+}
+
+.oppam-list-wrapper .MuiListItemText-primary {
+  font-family: 'Syne', sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  color: var(--op-text) !important;
+  letter-spacing: 0.05em !important;
+}
+
+/* Expand icons */
+.oppam-list-wrapper .MuiSvgIcon-root {
+  color: var(--op-accent) !important;
+  font-size: 18px !important;
+}
+
+/* Collapse inner area */
+.oppam-list-wrapper .MuiCollapse-root {
+  background: var(--op-card) !important;
+}
+
+/* Subject chip buttons */
+.oppam-list-wrapper .MuiCollapse-root .MuiListItemButton-root {
+  width: calc(33.33% - 10px) !important;
+  border-radius: var(--op-radius-sm) !important;
+  border: 1px solid var(--op-border) !important;
+  border-bottom: 1px solid var(--op-border) !important;
+  background: var(--op-subtle) !important;
+  padding: 14px 16px !important;
+  margin: 0 !important;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.oppam-list-wrapper .MuiCollapse-root .MuiListItemButton-root::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 100%;
+  background: var(--op-accent);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.oppam-list-wrapper .MuiCollapse-root .MuiListItemButton-root:hover {
+  background: var(--op-accent-dim) !important;
+  border-color: var(--op-border-hover) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 24px rgba(0,190,160,0.12) !important;
+  padding-left: 16px !important;
+}
+
+.oppam-list-wrapper .MuiCollapse-root .MuiListItemButton-root:hover::before {
+  opacity: 1;
+}
+
+.oppam-list-wrapper .MuiCollapse-root .MuiListItemText-primary {
+  font-family: 'Mulish', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: #a0aec0 !important;
+  letter-spacing: 0.03em !important;
+}
+
+.oppam-list-wrapper .MuiCollapse-root .MuiListItemButton-root:hover .MuiListItemText-primary {
+  color: var(--op-text) !important;
+}
+
+/* Inner flex list for subject chips */
+.oppam-list-wrapper .MuiCollapse-root > div > .MuiList-root {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  gap: 10px !important;
+  padding: 16px 20px 20px !important;
+  background: var(--op-card) !important;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .top {
+    padding: 60px 24px 40px;
+  }
+  .oppam-hero-title h1 {
+    font-size: 36px;
+  }
+  .oppam-list-wrapper .MuiCollapse-root .MuiListItemButton-root {
+    width: calc(50% - 10px) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .oppam-list-wrapper .MuiCollapse-root .MuiListItemButton-root {
+    width: 100% !important;
+  }
+}

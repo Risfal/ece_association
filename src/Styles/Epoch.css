@@ -1,0 +1,300 @@
+/* ═══════════════════════════════════════════════════════
+   EPOCH — Neon Glassmorphism Edition (Full Responsive Fix)
+   ═══════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Inter:wght@300;400;500&display=swap');
+
+:root {
+  --epoch-bg: #030307; 
+  --epoch-card: rgba(18, 18, 28, 0.6);
+  --epoch-border: rgba(0, 240, 255, 0.15);
+  --epoch-border-hover: rgba(0, 240, 255, 0.6);
+  --epoch-accent: #00f0ff;
+  --epoch-accent-alt: #bf00ff;
+  --epoch-accent-dim: rgba(0, 240, 255, 0.1);
+  --epoch-text: #ffffff;
+  --epoch-muted: #94a3b8;
+  --epoch-subtle: rgba(255, 255, 255, 0.05);
+  --radius-lg: 24px;
+  --radius-md: 16px;
+}
+
+body {
+  background-color: var(--epoch-bg);
+  background-image: 
+    radial-gradient(circle at 15% 50%, rgba(0, 240, 255, 0.08), transparent 25%),
+    radial-gradient(circle at 85% 30%, rgba(191, 0, 255, 0.08), transparent 25%);
+  margin: 0;
+  color: var(--epoch-text);
+  overflow-x: hidden;
+}
+
+.epoch-wrap {
+  width: 85vw;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 3rem 0;
+  font-family: 'Inter', sans-serif;
+}
+
+/* ── Typography ── */
+.epoch-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(40px, 5vw, 64px);
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  margin: 0;
+  background: linear-gradient(to right, var(--epoch-accent), var(--epoch-accent-alt));
+  
+  /* Standard property (fixes the warning) */
+  background-clip: text;
+  /* Vendor prefix (required for Chrome/Safari/Edge functionality) */
+  -webkit-background-clip: text;
+  
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 4px 15px rgba(0, 240, 255, 0.3));
+}
+
+.epoch-subtitle {
+  font-family: 'Outfit', sans-serif;
+  font-size: 12px;
+  color: var(--epoch-muted);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  margin: 12px 0 2.5rem 0;
+}
+
+/* ── Featured Row (Top Section) ── */
+.epoch-featured {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 30px;
+  margin-bottom: 60px;
+  align-items: stretch;
+}
+
+.epoch-feat-content {
+  background: var(--epoch-card);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--epoch-border);
+  border-radius: var(--radius-lg);
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.epoch-feat-content::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--epoch-accent), var(--epoch-accent-alt), transparent);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.epoch-feat-name {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(28px, 3vw, 38px);
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.epoch-feat-lead {
+  font-size: 14px;
+  color: #cbd5e1;
+  line-height: 1.6;
+  border-left: 3px solid var(--epoch-accent-alt);
+  padding-left: 16px;
+  margin-bottom: 10px;
+}
+
+/* ── Featured Image (The Main Poster) ── */
+.epoch-feat-img {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: #05050a;
+  position: relative;
+  border: 1px solid var(--epoch-border);
+  aspect-ratio: 4 / 5;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+}
+
+.epoch-feat-img-top {
+  position: absolute;
+  inset: 0;
+}
+
+.epoch-feat-img-top img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s ease;
+}
+
+.epoch-feat-img-label {
+  position: absolute;
+  bottom: 20px; left: 20px;
+  z-index: 5;
+  background: rgba(10, 10, 15, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--epoch-border);
+  border-radius: 30px;
+  padding: 8px 16px;
+  display: flex; align-items: center; gap: 10px;
+}
+
+.epoch-feat-img-label span {
+  font-size: 11px; font-weight: 600; color: white; letter-spacing: 0.05em;
+}
+
+.epoch-feat-img-label-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--epoch-accent);
+  box-shadow: 0 0 10px var(--epoch-accent);
+  animation: pulse-dot 2s infinite;
+}
+
+/* ── Carousel (Bottom Section) ── */
+.epoch-carousel { 
+  margin-top: 40px; 
+  width: 100%;
+}
+
+.epoch-track-wrap { 
+  overflow: hidden; 
+  padding: 25px 0; /* Ensures hover shadow/lift isn't cut off */
+}
+
+.epoch-track { 
+  display: flex; 
+  gap: 20px; 
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1); 
+}
+
+.epoch-old-card {
+  flex: 0 0 calc(33.333% - 14px);
+  min-width: 300px;
+  border-radius: var(--radius-md);
+  background: var(--epoch-card);
+  border: 1px solid var(--epoch-border);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.4s ease;
+  height: auto; 
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+.epoch-old-card:hover { 
+  transform: translateY(-12px); 
+  border-color: var(--epoch-accent);
+  box-shadow: 0 20px 40px rgba(0, 240, 255, 0.2);
+}
+
+/* Correcting Poster Visibility */
+.epoch-old-img-wrap {
+  width: 100%;
+  aspect-ratio: 16 / 9; /* Standard landscape poster ratio */
+  overflow: hidden;
+  background: #000;
+}
+
+.epoch-card-img-top { width: 100%; height: 100%; }
+
+.epoch-card-img-top img { 
+  width: 100%; 
+  height: 100%; 
+  object-fit: cover; 
+  display: block;
+}
+
+.epoch-old-info {
+  padding: 18px;
+  background: rgba(10, 10, 15, 0.98);
+  border-top: 1px solid var(--epoch-subtle);
+  flex-grow: 1; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.epoch-old-name { 
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600; 
+  font-size: 17px; 
+  color: #fff;
+}
+
+.epoch-old-tag { 
+  font-size: 11px; 
+  color: var(--epoch-accent); 
+  text-transform: uppercase; 
+  margin-top: 5px;
+  letter-spacing: 0.12em;
+  font-weight: 700;
+}
+
+/* ── Navigation ── */
+.epoch-nav { 
+  display: flex; 
+  align-items: center; 
+  justify-content: space-between; 
+  margin-top: 25px; 
+}
+
+.epoch-nav-btn {
+  background: var(--epoch-subtle);
+  border: 1px solid var(--epoch-border);
+  border-radius: 50%; 
+  width: 48px; height: 48px;
+  color: white; 
+  cursor: pointer; 
+  font-size: 22px;
+  transition: all 0.3s ease;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.epoch-nav-btn:hover {
+  background: var(--epoch-accent-dim);
+  border-color: var(--epoch-accent);
+  color: var(--epoch-accent);
+  transform: scale(1.1);
+}
+
+.epoch-dots { display: flex; gap: 10px; }
+
+.epoch-dot {
+  width: 8px; height: 8px; border-radius: 50%; 
+  background: rgba(255,255,255,0.2); border: none; cursor: pointer;
+  transition: 0.3s;
+}
+
+.epoch-dot.active { 
+  background: var(--epoch-accent); 
+  width: 24px; 
+  border-radius: 10px; 
+  box-shadow: 0 0 10px var(--epoch-accent);
+}
+
+/* ── RESPONSIVE BREAKPOINTS ── */
+
+@media (max-width: 1100px) {
+  .epoch-featured { grid-template-columns: 1fr; }
+  .epoch-feat-img { aspect-ratio: 16 / 9; max-height: 400px; order: -1; }
+  .epoch-old-card { flex: 0 0 calc(50% - 10px); }
+}
+
+@media (max-width: 650px) {
+  .epoch-wrap { width: 90vw; }
+  .epoch-old-card { flex: 0 0 92%; }
+  .epoch-nav-btn { width: 40px; height: 40px; }
+  .epoch-feat-content { padding: 1.5rem; }
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.8); }
+}
