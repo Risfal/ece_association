@@ -8,8 +8,6 @@ import Footer from './Components/Footer';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Styles/App.css';
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import CarouselCustom from './Components/Carousal';
-import ControlledCarousel from './Components/ControlledCarousel';
 import Billboard from './Components/Billboard';
 import LoadingScreen from './Components/Loading';
 import NotFound from './Components/NotFound';
@@ -50,7 +48,7 @@ function App() {
         description: record.get('description'),
         tag: record.get('tag'),
         imageUrl: record.get('imageUrl')?.[0]?.url ?? null,
-      })).filter(item => item.imageUrl); // drop any records missing an image
+      })).filter(item => item.imageUrl);
 
       setGallery(prev => [...prev, ...mapped]);
       fetchNextPage();
