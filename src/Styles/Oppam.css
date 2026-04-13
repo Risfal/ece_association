@@ -20,7 +20,11 @@
   --op-radius-sm: 9px;
 }
 
-* { box-sizing: border-box; }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
 /* ── Page wrapper ── */
 .oppam {
@@ -30,6 +34,7 @@
   font-family: 'Mulish', sans-serif;
   position: relative;
   overflow-x: hidden;
+  width: 100%;
 }
 
 /* Subtle grid background */
@@ -49,10 +54,11 @@
 .top {
   position: relative;
   z-index: 1;
-  padding: 90px 60px 60px;
+  padding: 80px 24px 50px;
   text-align: center;
   max-width: 760px;
   margin: 0 auto;
+  width: 100%;
 }
 
 /* Icon + title row */
@@ -60,15 +66,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 14px;
+  gap: 12px;
   margin-bottom: 6px;
+  flex-wrap: wrap;
 }
 
 .oppam-hero-title .oppam-icon {
-  font-size: 2.2rem;
+  font-size: clamp(1.4rem, 4vw, 2.2rem);
   color: var(--op-accent);
   filter: drop-shadow(0 0 10px var(--op-accent-glow));
   animation: icon-pulse 3s ease-in-out infinite;
+  flex-shrink: 0;
 }
 
 @keyframes icon-pulse {
@@ -78,12 +86,13 @@
 
 .oppam-hero-title h1 {
   font-family: 'Syne', sans-serif;
-  font-size: 52px;
+  font-size: clamp(28px, 7vw, 52px);
   font-weight: 800;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   color: var(--op-text);
   margin: 0;
   line-height: 1;
+  word-break: break-word;
 }
 
 /* Accent underline */
@@ -105,32 +114,33 @@
 /* Subtitle */
 .top h3 {
   font-family: 'Syne', sans-serif;
-  font-size: 11px;
+  font-size: clamp(9px, 2vw, 11px);
   font-weight: 600;
-  letter-spacing: 0.3em;
+  letter-spacing: 0.25em;
   text-transform: uppercase;
   color: var(--op-accent);
   margin: 14px 0 0;
+  word-break: break-word;
 }
 
 /* Description */
 .top p {
-  font-size: 14px;
+  font-size: clamp(13px, 2.5vw, 14px);
   color: var(--op-muted);
   line-height: 1.8;
   margin: 18px auto 0;
   max-width: 480px;
-  font-style: normal;
   font-weight: 300;
   letter-spacing: 0.02em;
+  word-break: break-word;
 }
 
-/* Divider after hero */
+/* Divider */
 .oppam-hero-divider {
   width: 1px;
   height: 48px;
   background: linear-gradient(to bottom, var(--op-accent), transparent);
-  margin: 0 auto 0;
+  margin: 0 auto;
 }
 
 /* ── CONTENT PANEL ── */
@@ -139,10 +149,11 @@
   z-index: 1;
   display: flex;
   justify-content: center;
-  padding: 0 24px 80px;
+  padding: 0 16px 80px;
+  width: 100%;
 }
 
-/* MUI List overrides via wrapper */
+/* MUI List wrapper */
 .oppam-list-wrapper {
   width: 100%;
   max-width: 860px;
@@ -162,15 +173,16 @@
   font-weight: 700 !important;
   letter-spacing: 0.2em !important;
   text-transform: uppercase !important;
-  padding: 20px 28px 18px !important;
+  padding: 20px 20px 18px !important;
   border-bottom: 1px solid var(--op-border) !important;
   position: relative !important;
+  word-break: break-word !important;
 }
 
 .oppam-list-wrapper .MuiListSubheader-root::after {
   content: '';
   position: absolute;
-  bottom: 0; left: 28px;
+  bottom: 0; left: 20px;
   width: 36px; height: 2px;
   background: var(--op-accent);
   border-radius: 2px;
@@ -178,28 +190,30 @@
 
 /* Semester row buttons */
 .oppam-list-wrapper .MuiListItemButton-root {
-  padding: 16px 28px !important;
+  padding: 16px 20px !important;
   border-bottom: 1px solid var(--op-border) !important;
   transition: background 0.2s, padding-left 0.2s !important;
 }
 
 .oppam-list-wrapper .MuiListItemButton-root:hover {
   background: var(--op-accent-dim) !important;
-  padding-left: 36px !important;
+  padding-left: 28px !important;
 }
 
 .oppam-list-wrapper .MuiListItemText-primary {
   font-family: 'Syne', sans-serif !important;
-  font-size: 14px !important;
+  font-size: clamp(12px, 2.5vw, 14px) !important;
   font-weight: 600 !important;
   color: var(--op-text) !important;
-  letter-spacing: 0.05em !important;
+  letter-spacing: 0.04em !important;
+  word-break: break-word !important;
 }
 
 /* Expand icons */
 .oppam-list-wrapper .MuiSvgIcon-root {
   color: var(--op-accent) !important;
   font-size: 18px !important;
+  flex-shrink: 0 !important;
 }
 
 /* Collapse inner area */
@@ -219,6 +233,7 @@
   transition: background 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s !important;
   position: relative !important;
   overflow: hidden !important;
+  min-width: 0 !important;
 }
 
 .oppam-list-wrapper .MuiCollapse-root .MuiListItemButton-root::before {
@@ -245,10 +260,12 @@
 
 .oppam-list-wrapper .MuiCollapse-root .MuiListItemText-primary {
   font-family: 'Mulish', sans-serif !important;
-  font-size: 13px !important;
+  font-size: clamp(11px, 2vw, 13px) !important;
   font-weight: 500 !important;
   color: #a0aec0 !important;
   letter-spacing: 0.03em !important;
+  word-break: break-word !important;
+  white-space: normal !important;
 }
 
 .oppam-list-wrapper .MuiCollapse-root .MuiListItemButton-root:hover .MuiListItemText-primary {
@@ -261,25 +278,40 @@
   flex-direction: row !important;
   flex-wrap: wrap !important;
   gap: 10px !important;
-  padding: 16px 20px 20px !important;
+  padding: 16px 16px 20px !important;
   background: var(--op-card) !important;
 }
 
 /* ── Responsive ── */
 @media (max-width: 768px) {
   .top {
-    padding: 60px 24px 40px;
+    padding: 56px 16px 36px;
   }
-  .oppam-hero-title h1 {
-    font-size: 36px;
+
+  .content {
+    padding: 0 12px 60px;
   }
+
+  .oppam-list-wrapper {
+    border-radius: 14px;
+  }
+
   .oppam-list-wrapper .MuiCollapse-root .MuiListItemButton-root {
-    width: calc(50% - 10px) !important;
+    width: calc(50% - 5px) !important;
   }
 }
 
 @media (max-width: 480px) {
+  .top {
+    padding: 44px 14px 28px;
+  }
+
   .oppam-list-wrapper .MuiCollapse-root .MuiListItemButton-root {
     width: 100% !important;
+  }
+
+  .oppam-list-wrapper .MuiCollapse-root > div > .MuiList-root {
+    gap: 8px !important;
+    padding: 12px 12px 16px !important;
   }
 }

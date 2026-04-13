@@ -88,9 +88,6 @@ function NavCustom() {
               className="nav-cta-wrap"
               onClick={() => setExpanded(false)}
             >
-              <Link to="contacts" smooth duration={500} offset={-64} className="nav-cta">
-                Join Us
-              </Link>
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>
