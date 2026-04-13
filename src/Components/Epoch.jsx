@@ -3,14 +3,14 @@ import "../Styles/Epoch.css";
 
 // Import your images
 import Epoch1 from "../Epoch1.jpeg";
-import Epoch2 from "../Epoch1.jpeg"; 
+import Epoch2 from "../Styles/Epoch2.jpeg"; 
 import Epoch3 from "../Epoch1.jpeg";
 import Epoch4 from "../Epoch1.jpeg";
 import Epoch5 from "../Epoch1.jpeg";
 
 const EPOCHS = [
   { 
-    img: Epoch2, 
+    img: Epoch1, 
     name: "Placement Talk",   
     tag: "Session 2",
     date: "Tuesday, 14 April 2026 | 7PM",
@@ -19,9 +19,9 @@ const EPOCHS = [
       { name: "Diya Rose Thomas", role: "Digital Design Intern, Analog Devices" },
       { name: "Keshav Balakrishnan", role: "Design Verification Intern, Analog Devices" }
     ],
-    joinLink: "https://meet.google.com/your-meeting-link"
+    joinLink: "https://meet.google.com/dwd-kpmf-uvi"
   },
-  { img: Epoch1, name: "Epoch I",   tag: "Session 1" },
+  { img: Epoch2, name: "Epoch I",   tag: "Session 1" },
   { img: Epoch3, name: "Epoch III", tag: "Session 3" },
   { img: Epoch4, name: "Epoch IV",  tag: "Session 4" },
   { img: Epoch5, name: "Epoch V",   tag: "Session 5" },
